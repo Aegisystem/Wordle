@@ -14,9 +14,10 @@
 }
 
 .keyboard {
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-self: flex-start;
+    align-self: center;
     gap: 5px
 }

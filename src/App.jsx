@@ -84,7 +84,7 @@ function App() {
         }
         <Keyboard guesses={guesses} solution={solution}/>
         {gameOver ? guesses.includes(solution) ? 
-          "You Won" : "You Lose" : ""
+          "You Won" : `You Lose the word was: ${solution}` : ""
         }
       </div>
   )
@@ -98,7 +98,7 @@ const WordLine = ( { word, isReady, solution } ) => {
     const state = !isReady ? '' : copy[i] === char ? 'correct' 
       : copy.includes(char) ? 'almost'
       : 'incorrect'
-    copy[i] = '-'
+    if(state !== '') copy[copy.findIndex(letter => letter==char)] = '-' 
     tiles.push(
       <div key={i} className={'tile '+state}>{char}</div>
     )

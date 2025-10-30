@@ -17,11 +17,12 @@
 .board {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 5px;
 }
 
 .incorrect {
-    background-color: gray;
+    background-color: lightgray;
 }
 
 .correct {
