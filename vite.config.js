@@ -13,6 +13,14 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true,
-    }
+    },
+    proxy: {
+      '/api': {
+        target: 'https://api.frontendexpert.io',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
+      },
+    },
   },
 })

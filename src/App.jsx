@@ -5,6 +5,9 @@ import Keyboard from './Keyboard'
 const WORD_LENGTH = 5
 
 const WORDS_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
+const API_URL = import.meta.env.DEV
+  ? '/api/fe/wordle-words'
+  : '/.netlify/functions/wordle-words'
 
 function App() {
 
@@ -13,10 +16,9 @@ function App() {
   const [currentWord, setCurrentWord] = useState("")
   const [gameOver, setGameOver] = useState(false)
 
-
   useEffect( () => {
     const fetchWord = async () => {
-      const resp = await fetch('/.netlify/functions/wordle-words')
+      const resp = await fetch(API_URL)
       const words = await resp.json()
       const rand = words[Math.floor(Math.random() * words.length)]
       setSolution( rand )
