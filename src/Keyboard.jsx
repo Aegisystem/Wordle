@@ -7,20 +7,20 @@ const keyboard = [
     "ZXCVBNM"
 ]
 
-const Keyboard = ({ guesses, solution }) => {
+const Keyboard = ({ guesses, solution, onKeyDown }) => {
 
     return (
         <div className='keyboard'>
             {
                 keyboard.map((row, index) => 
-                    <KeyRow key={index} row={row} guesses={guesses} solution={solution}/>
+                    <KeyRow key={index} row={row} guesses={guesses} solution={solution} onKeyDown={onKeyDown}/>
                 )
             }
         </div>
     )
 }
 
-const KeyRow = ({ row, guesses, solution }) => {
+const KeyRow = ({ row, guesses, solution, onKeyDown }) => {
     let keys = []
     const keysColors = {}
 
@@ -42,9 +42,37 @@ const KeyRow = ({ row, guesses, solution }) => {
         })
     })
     
-    row.split("").map((key) => {
-        return keys.push(<div key={key} className={'key '+ keysColors[key]}>{key}</div>)
+    row.split("").forEach(key => {
+        return keys.push(
+        <div 
+            key={key} 
+            className={'key '+ keysColors[key]}
+            onClick={ () => onKeyDown(key) }
+        >
+            {key}
+        </div>)
     })
+
+    if (row === "ZXCVBNM") {
+        keys.unshift(
+        <div
+            key="ENTER"
+            className="key wide"
+            onClick={() => onKeyDown('ENTER')}
+        >
+            Enter
+        </div>
+        )
+        keys.push(
+        <div
+            key="BACKSPACE"
+            className="key wide"
+            onClick={() => onKeyDown('BACKSPACE')}
+        >
+            ⌫
+        </div>
+        )
+    }
 
     return (
         <div className='keyRow'>

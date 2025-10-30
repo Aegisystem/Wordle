@@ -66,9 +66,9 @@ function App() {
       }
     }
 
-    document.addEventListener("keydown", keyDownHandler)
+    window.addEventListener("keydown", keyDownHandler)
 
-    return () => document.removeEventListener("keydown", keyDownHandler)
+    return () => window.removeEventListener("keydown", keyDownHandler)
   }, [currentWord, guesses])
 
   return (
@@ -84,7 +84,11 @@ function App() {
             )
           })
         }
-        <Keyboard guesses={guesses} solution={solution}/>
+        <Keyboard guesses={guesses} solution={solution} onKeyDown={(key) =>
+          window.dispatchEvent(
+            new KeyboardEvent('keydown', { key: key.toLowerCase() })
+          )
+        }/>
         {gameOver ? guesses.includes(solution) ? 
           "You Won" : `You Lose the word was: ${solution}` : ""
         }
