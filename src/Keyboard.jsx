@@ -60,7 +60,7 @@ const KeyRow = ({ row, guesses, solution, onKeyDown }) => {
             className="key wide"
             onClick={() => onKeyDown('ENTER')}
         >
-            Enter
+            &nbsp;&nbsp;Enter&nbsp;&nbsp;
         </div>
         )
         keys.push(
