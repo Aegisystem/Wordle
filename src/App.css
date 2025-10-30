@@ -1,0 +1,33 @@
+.tile {
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.wordLine {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 5px;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.incorrect {
+    background-color: gray;
+}
+
+.correct {
+    background-color: lightgreen;
+}
+
+.almost {
+    background-color: yellow;
+}
