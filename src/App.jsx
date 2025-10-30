@@ -16,7 +16,7 @@ function App() {
 
   useEffect( () => {
     const fetchWord = async () => {
-      const resp = await fetch('https://api.frontendexpert.io/api/fe/wordle-words')
+      const resp = await fetch('/.netlify/functions/wordle-words')
       const words = await resp.json()
       const rand = words[Math.floor(Math.random() * words.length)]
       setSolution( rand )
