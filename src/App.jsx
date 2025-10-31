@@ -11,7 +11,7 @@ const API_URL = import.meta.env.DEV
 
 function App() {
 
-  const [solution, setSolution] = useState('')
+  const [solution, setSolution] = useState('HELLO')
   const [guesses, setGuesses] = useState(Array(6).fill(null))
   const [currentWord, setCurrentWord] = useState("")
   const [gameOver, setGameOver] = useState(false)
@@ -24,7 +24,7 @@ function App() {
       setSolution( rand )
     }
 
-    fetchWord()
+    // fetchWord()
   }, [])
 
   useEffect( () => {
@@ -96,25 +96,50 @@ function App() {
   )
 }
 
-const WordLine = ( { word, isReady, solution } ) => {
+const WordLine = ({ word, isReady, solution }) => {
   const tiles = []
   const copy = solution.split('')
-  for(let i=0; i<WORD_LENGTH; i++) {
+  const states = Array(WORD_LENGTH).fill('')
+
+  if (!isReady) {
+    for (let i = 0; i < WORD_LENGTH; i++) {
+      tiles.push(<div key={i} className="tile">{word[i]}</div>)
+    }
+    return <div className="wordLine">{tiles}</div>
+  }
+
+  // 🔹 Primera pasada: marcar las correctas
+  for (let i = 0; i < WORD_LENGTH; i++) {
     const char = word[i]
-    const state = !isReady ? '' : copy[i] === char ? 'correct' 
-      : copy.includes(char) ? 'almost'
-      : 'incorrect'
-    if(state !== '') copy[copy.findIndex(letter => letter==char)] = '-' 
+    if (char === copy[i]) {
+      states[i] = 'correct'
+      copy[i] = '-'
+    }
+  }
+
+  for (let i = 0; i < WORD_LENGTH; i++) {
+    if (states[i] === '') {
+      const char = word[i]
+      if (copy.includes(char)) {
+        states[i] = 'almost'
+        copy[copy.indexOf(char)] = '-'
+      } else {
+        states[i] = 'incorrect'
+      }
+    }
+  }
+
+  // Construir los tiles (misma estructura)
+  for (let i = 0; i < WORD_LENGTH; i++) {
+    const char = word[i]
+    const state = states[i]
     tiles.push(
-      <div key={i} className={'tile '+state}>{char}</div>
+      <div key={i} className={'tile ' + state}>{char}</div>
     )
   }
-  
-  return (
-    <div className='wordLine'>
-      {tiles}
-    </div>
-  )
+
+  return <div className="wordLine">{tiles}</div>
 }
+
 
 export default App
