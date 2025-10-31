@@ -11,7 +11,7 @@ const API_URL = import.meta.env.DEV
 
 function App() {
 
-  const [solution, setSolution] = useState('HELLO')
+  const [solution, setSolution] = useState('')
   const [guesses, setGuesses] = useState(Array(6).fill(null))
   const [currentWord, setCurrentWord] = useState("")
   const [gameOver, setGameOver] = useState(false)
@@ -24,7 +24,7 @@ function App() {
       setSolution( rand )
     }
 
-    // fetchWord()
+    fetchWord()
   }, [])
 
   useEffect( () => {
