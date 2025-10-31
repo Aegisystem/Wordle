@@ -90,7 +90,7 @@ function App() {
           )
         }/>
         {gameOver ? guesses.includes(solution) ? 
-          "You Won" : `You Lose the word was: ${solution}` : ""
+          "You Won!" : `You lose, the word was: ${solution}` : ""
         }
       </div>
   )
